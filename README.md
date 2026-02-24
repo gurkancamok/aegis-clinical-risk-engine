@@ -75,4 +75,4 @@ The long-term objective of AEGIS is to evolve into:
 ## 👨‍⚕️ Developed By
 
 Gürkan Çamok  
-Clinical Innovation & Digital Health Systems
+DigitalTechnology & Clinical Innovation & Digital Health Systems
