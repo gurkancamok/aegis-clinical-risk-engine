@@ -6,6 +6,13 @@ This system integrates established clinical assessment tools into a unified comp
 
 ---
 
+## 🚀 Live Demo
+
+Access the interactive prototype here:
+
+👉 https://gurkancamok.github.io/aegis-clinical-risk-engine/
+
+
 ## 🔬 Clinical Domains Integrated
 
 AEGIS incorporates:
