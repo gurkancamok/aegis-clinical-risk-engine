@@ -6,120 +6,37 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
-body{
-background: linear-gradient(135deg,#0f172a,#020617);
-color:white;
-font-family:'Segoe UI',sans-serif;
-padding:20px;
-}
+body{background:#0f172a;color:white;font-family:Arial;padding:20px}
+h1{color:#38bdf8}
 
-h1{
-text-align:center;
-font-size:34px;
-margin-bottom:20px;
-background: linear-gradient(90deg,#38bdf8,#22c55e);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-}
+/* Accordion */
+.accordion{background:#1e293b;padding:15px;border-radius:10px;margin-bottom:8px;cursor:pointer;font-weight:bold}
+.panel{display:none;padding:15px;border-radius:10px;margin-bottom:15px}
 
-/* GRID */
-.grid{
-display:grid;
-grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-gap:15px;
-}
+/* Domain Colors */
+.news-panel{background:#1e3a8a;}
+.gcs-panel{background:#4c1d95;}
+.morse-panel{background:#7c2d12;}
+.braden-panel{background:#854d0e;}
+.rass-panel{background:#7f1d1d;}
+.gly-panel{background:#065f46;}
+.ref-panel{background:#374151;}
 
-/* CARD */
-.card{
-background: rgba(255,255,255,0.05);
-backdrop-filter: blur(12px);
-border:1px solid rgba(255,255,255,0.1);
-padding:18px;
-border-radius:16px;
-transition:0.3s;
-}
-
-.card:hover{
-transform:translateY(-4px);
-box-shadow:0 15px 30px rgba(0,0,0,0.6);
-}
-
-/* ACCORDION */
-.accordion{
-font-weight:600;
-cursor:pointer;
-font-size:16px;
-display:flex;
-justify-content:space-between;
-}
-
-.panel{
-display:none;
-margin-top:10px;
-}
-
-/* INPUT */
-input,select{
-width:100%;
-margin:6px 0;
-padding:10px;
-border-radius:10px;
-border:none;
-background:#020617;
-color:white;
-outline:none;
-}
-
-input:focus,select:focus{
-border:1px solid #38bdf8;
-}
-
-/* BUTTON */
-button{
-width:100%;
-padding:14px;
-border:none;
-border-radius:12px;
-margin-top:10px;
-font-weight:bold;
-background: linear-gradient(90deg,#38bdf8,#22c55e);
-color:black;
-cursor:pointer;
-transition:0.3s;
-}
-
-button:hover{
-transform:scale(1.03);
-box-shadow:0 0 20px #38bdf8;
-}
-
-/* RESULT */
-.result{
-background: rgba(255,255,255,0.05);
-backdrop-filter: blur(10px);
-padding:20px;
-border-radius:15px;
-margin-top:20px;
-text-align:center;
-font-size:18px;
-}
-
+input,select{width:100%;margin:6px 0;padding:6px;border-radius:6px;border:none}
+button{width:100%;padding:12px;background:#38bdf8;border:none;border-radius:8px;margin-top:10px}
+.result{background:#1e293b;padding:20px;border-radius:10px;margin-top:20px;font-size:18px}
 .standard{color:#22c55e}
 .elevated{color:#facc15}
 .critical{color:#ef4444}
 
-canvas{
-background:#020617;
-margin-top:15px;
-border-radius:10px;
-}
+canvas{background:#111827;margin-top:15px;border-radius:8px}
 </style>
 </head>
-
 <body>
 
 <h1>AEGIS – Clinical Risk Intelligence Engine</h1>
 
+Service Context
 <select id="service">
 <option>Internal Medicine</option>
 <option>Surgery</option>
@@ -128,51 +45,43 @@ border-radius:10px;
 <option>General Ward</option>
 </select>
 
-<div class="grid">
-
-<!-- NEWS -->
-<div class="card">
-<div class="accordion" onclick="toggle(this)">NEWS2</div>
-<div class="panel">
-<input type="number" id="rr" placeholder="Respiratory Rate">
-<input type="number" id="o2" placeholder="O2 Saturation">
-<input type="number" id="sbp" placeholder="Systolic BP">
-<input type="number" id="hr" placeholder="Heart Rate">
-<input type="number" id="temp" placeholder="Temperature">
+<!-- NEWS2 -->
+<div class="accordion" onclick="toggle(this)">Deterioration – NEWS2</div>
+<div class="panel news-panel">
+Respiratory Rate <input type="number" id="rr">
+O2 Saturation <input type="number" id="o2">
+Systolic BP <input type="number" id="sbp">
+Heart Rate <input type="number" id="hr">
+Temperature <input type="number" id="temp">
+Consciousness
 <select id="avpu">
 <option value="0">Alert</option>
 <option value="3">Voice/Pain/Unresponsive</option>
 </select>
 </div>
-</div>
 
 <!-- GCS -->
-<div class="card">
-<div class="accordion" onclick="toggle(this)">GCS</div>
-<div class="panel">
-<select id="eye"><option value="4">Eye 4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select>
-<select id="verbal"><option value="5">Verbal 5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select>
-<select id="motor"><option value="6">Motor 6</option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select>
-</div>
+<div class="accordion" onclick="toggle(this)">Neurological – GCS</div>
+<div class="panel gcs-panel">
+Eye <select id="eye"><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select>
+Verbal <select id="verbal"><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select>
+Motor <select id="motor"><option value="6">6</option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select>
 </div>
 
 <!-- MORSE -->
-<div class="card">
-<div class="accordion" onclick="toggle(this)">Morse Fall Risk</div>
-<div class="panel">
-<label><input type="checkbox" id="m1"> History</label>
-<label><input type="checkbox" id="m2"> Secondary Dx</label>
-<label><input type="checkbox" id="m3"> Aid</label>
-<label><input type="checkbox" id="m4"> IV</label>
-<label><input type="checkbox" id="m5"> Gait</label>
+<div class="accordion" onclick="toggle(this)">Fall Risk – Morse</div>
+<div class="panel morse-panel">
+<label><input type="checkbox" id="m1"> History</label><br>
+<label><input type="checkbox" id="m2"> Secondary Dx</label><br>
+<label><input type="checkbox" id="m3"> Aid</label><br>
+<label><input type="checkbox" id="m4"> IV</label><br>
+<label><input type="checkbox" id="m5"> Gait</label><br>
 <label><input type="checkbox" id="m6"> Mental</label>
-</div>
 </div>
 
 <!-- BRADEN -->
-<div class="card">
-<div class="accordion" onclick="toggle(this)">Braden</div>
-<div class="panel">
+<div class="accordion" onclick="toggle(this)">Pressure Injury – Braden</div>
+<div class="panel braden-panel">
 <select id="b1"><option>1</option><option>2</option><option>3</option><option>4</option></select>
 <select id="b2"><option>1</option><option>2</option><option>3</option><option>4</option></select>
 <select id="b3"><option>1</option><option>2</option><option>3</option><option>4</option></select>
@@ -180,42 +89,40 @@ border-radius:10px;
 <select id="b5"><option>1</option><option>2</option><option>3</option><option>4</option></select>
 <select id="b6"><option>1</option><option>2</option><option>3</option></select>
 </div>
-</div>
 
 <!-- RASS -->
-<div class="card">
-<div class="accordion" onclick="toggle(this)">RASS</div>
-<div class="panel">
+<div class="accordion" onclick="toggle(this)">Sedation – RASS</div>
+<div class="panel rass-panel">
 <select id="rass">
-<option value="4">+4</option>
-<option value="3">+3</option>
-<option value="2">+2</option>
-<option value="1">+1</option>
-<option value="0">0</option>
-<option value="-1">-1</option>
-<option value="-2">-2</option>
-<option value="-3">-3</option>
-<option value="-4">-4</option>
+<option value="4">+4</option><option value="3">+3</option><option value="2">+2</option>
+<option value="1">+1</option><option value="0">0</option>
+<option value="-1">-1</option><option value="-2">-2</option>
+<option value="-3">-3</option><option value="-4">-4</option>
 <option value="-5">-5</option>
 </select>
 </div>
-</div>
 
 <!-- GLY -->
-<div class="card">
-<div class="accordion" onclick="toggle(this)">Glycemic</div>
-<div class="panel">
-<input type="number" id="glucose" placeholder="Blood Glucose">
-</div>
-</div>
-
+<div class="accordion" onclick="toggle(this)">Glycemic Risk</div>
+<div class="panel gly-panel">
+Blood Glucose <input type="number" id="glucose">
 </div>
 
 <button onclick="calculate()">Calculate AEGIS Risk</button>
-<button onclick="generatePDF()">Generate PDF</button>
+<button onclick="generatePDF()">Generate PDF Report</button>
 
 <div class="result" id="output"></div>
 <canvas id="chart" width="600" height="200"></canvas>
+
+<!-- REFERENCES -->
+<div class="accordion" onclick="toggle(this)">References</div>
+<div class="panel ref-panel">
+NEWS2 – Royal College of Physicians, 2017<br>
+GCS – Teasdale & Jennett, 1974<br>
+Morse – Morse JM, 1989<br>
+Braden – Bergstrom et al., 1987<br>
+RASS – Sessler et al., 2002
+</div>
 
 <script>
 function toggle(el){
@@ -238,20 +145,20 @@ function calculate(){
 let service=document.getElementById("service").value;
 let w=weights[service];
 
-let rr=+rr.value||0;
-let o2=+o2.value||0;
-let sbp=+sbp.value||0;
-let hr=+hr.value||0;
-let temp=+temp.value||0;
-let avpu=+avpu.value;
+let rr=parseFloat(document.getElementById("rr").value)||0;
+let o2=parseFloat(document.getElementById("o2").value)||0;
+let sbp=parseFloat(document.getElementById("sbp").value)||0;
+let hr=parseFloat(document.getElementById("hr").value)||0;
+let temp=parseFloat(document.getElementById("temp").value)||0;
+let avpu=parseInt(document.getElementById("avpu").value);
 
 let news=(rr<=8||rr>=25?3:0)+(o2<=91?3:0)+(sbp<=90?3:0)+(hr>=131?3:0)+(temp>=39?3:0)+avpu;
 
-let gcs=+eye.value+ +verbal.value+ +motor.value;
+let gcs=parseInt(eye.value)+parseInt(verbal.value)+parseInt(motor.value);
 let morse=(m1.checked?25:0)+(m2.checked?15:0)+(m3.checked?15:0)+(m4.checked?20:0)+(m5.checked?20:0)+(m6.checked?15:0);
-let braden=+b1.value+ +b2.value+ +b3.value+ +b4.value+ +b5.value+ +b6.value;
-let rassVal=Math.abs(+rass.value);
-let glucose=+glucose.value||0;
+let braden=parseInt(b1.value)+parseInt(b2.value)+parseInt(b3.value)+parseInt(b4.value)+parseInt(b5.value)+parseInt(b6.value);
+let rassVal=Math.abs(parseInt(rass.value));
+let glucose=parseFloat(document.getElementById("glucose").value)||0;
 let gly=(glucose<70||glucose>250)?3:1;
 
 let n_news=(news/20)*100;
@@ -273,7 +180,8 @@ if(news>=7 && gcs<=12)amp+=0.25;
 
 let final=Math.min(base*amp,100);
 
-let profile="",cls="";
+let profile="";
+let cls="";
 if(final<40){profile="Standard";cls="standard"}
 else if(final<70){profile="Elevated";cls="elevated"}
 else{profile="Critical";cls="critical"}
@@ -284,20 +192,20 @@ profile==="Elevated"?
 "Close monitoring advised.":
 "Continue routine monitoring.";
 
-output.innerHTML=`<div class="${cls}">
+document.getElementById("output").innerHTML=
+`<div class="${cls}">
 <b>Global Risk Index: ${final.toFixed(1)}</b><br>
 Risk Profile: ${profile}<br>
-Amplification: ${amp.toFixed(2)}<br><br>
-${recommendation}
+Amplification Factor: ${amp.toFixed(2)}<br><br>
+Clinical Recommendation: ${recommendation}
 </div>`;
 
 lastData={final,profile,amp,recommendation};
-
 drawChart([n_news,n_gcs,n_morse,n_braden,n_rass,n_gly]);
 }
 
 function drawChart(data){
-let ctx=chart.getContext("2d");
+let ctx=document.getElementById("chart").getContext("2d");
 ctx.clearRect(0,0,600,200);
 let labels=["NEWS","GCS","Morse","Braden","RASS","Gly"];
 for(let i=0;i<data.length;i++){
@@ -312,10 +220,11 @@ async function generatePDF(){
 const { jsPDF } = window.jspdf;
 let doc=new jsPDF();
 doc.text("AEGIS Clinical Risk Report",10,10);
-doc.text("Risk: "+lastData.final,10,20);
-doc.text("Profile: "+lastData.profile,10,30);
-doc.text("Recommendation: "+lastData.recommendation,10,40);
-doc.save("AEGIS_Report.pdf");
+doc.text("Global Risk Index: "+lastData.final,10,20);
+doc.text("Risk Profile: "+lastData.profile,10,30);
+doc.text("Amplification: "+lastData.amp,10,40);
+doc.text("Recommendation: "+lastData.recommendation,10,50);
+doc.save("AEGIS_Risk_Report.pdf");
 }
 </script>
 
